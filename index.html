@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+  Педагогика және қазақ тілін оқыту әдістемесі
+</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #7c3aed;
+  --primary-dark: #5b21b6;
+  --primary-light: #ede9fe;
+
+  --background: #f7f5fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #667085;
+  --border: #ddd6e8;
+
+  --correct: #15803d;
+  --correct-background: #dcfce7;
+
+  --wrong: #b91c1c;
+  --wrong-background: #fee2e2;
+
+  --partial: #a16207;
+  --partial-background: #fef3c7;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.55;
+}
+
+header {
+  padding: 34px 16px 58px;
+  background:
+    linear-gradient(
+      135deg,
+      #6d28d9,
+      #9333ea
+    );
+  color: white;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 10px;
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+header p {
+  margin: 0;
+  font-size: 17px;
+  opacity: 0.95;
+}
+
+.container {
+  width: min(
+    960px,
+    calc(100% - 24px)
+  );
+  margin: -32px auto 55px;
+}
+
+.section-navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+  background: white;
+  border-radius: 17px;
+  box-shadow:
+    0 5px 20px
+    rgba(31, 41, 55, 0.09);
+}
+
+.section-button {
+  border: 2px solid #ddd6e8;
+  border-radius: 13px;
+  padding: 16px 12px;
+  background: #faf8ff;
+  color: #344054;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.section-button:hover {
+  border-color: var(--primary);
+}
+
+.section-button.active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+}
+
+.test-section {
+  display: none;
+}
+
+.test-section.active {
+  display: block;
+}
+
+.section-header {
+  padding: 21px;
+  margin-bottom: 15px;
+  background: white;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 18px
+    rgba(31, 41, 55, 0.07);
+}
+
+.section-header h2 {
+  margin: 0 0 7px;
+  color: var(--primary);
+  font-size: 27px;
+}
+
+.section-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.section-information {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 13px;
+}
+
+.information-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.progress-card {
+  padding: 16px 18px;
+  margin-bottom: 15px;
+  background: white;
+  border-radius: 15px;
+  box-shadow:
+    0 4px 18px
+    rgba(31, 41, 55, 0.07);
+}
+
+.progress-information {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 9px;
+  color: var(--muted);
+}
+
+.progress-information strong {
+  color: var(--primary);
+}
+
+.progress-line {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e7e2ee;
+}
+
+.progress-line span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary);
+  transition: width 0.25s;
+}
+
+.question {
+  padding: 21px;
+  margin-bottom: 15px;
+  background: var(--card);
+  border: 1px solid #e5e0eb;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 17px
+    rgba(31, 41, 55, 0.06);
+}
+
+.question-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 35px;
+  margin-bottom: 12px;
+  padding: 0 11px;
+  border-radius: 10px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 900;
+}
+
+.question-title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.multiple-answer-hint {
+  margin: -4px 0 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.options {
+  display: grid;
+  gap: 9px;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: 0.18s;
+}
+
+.option:hover {
+  border-color: #b8a2ee;
+  background: #fcfbff;
+}
+
+.option input {
+  flex: 0 0 auto;
+  margin-top: 4px;
+  transform: scale(1.15);
+  accent-color: var(--primary);
+}
+
+.option-letter {
+  flex: 0 0 25px;
+  color: #475467;
+  font-weight: 900;
+}
+
+.option.correct {
+  border-color: #22c55e;
+  background: var(--correct-background);
+  color: #166534;
+}
+
+.option.wrong {
+  border-color: #ef4444;
+  background: var(--wrong-background);
+  color: #991b1b;
+}
+
+.explanation {
+  display: none;
+  margin-top: 17px;
+  padding-top: 16px;
+  border-top: 1px solid #e4e7ec;
+}
+
+.question.checked .explanation {
+  display: block;
+}
+
+.question-score {
+  margin-bottom: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-weight: 900;
+}
+
+.question-score.full {
+  background: var(--correct-background);
+  color: #166534;
+}
+
+.question-score.partial {
+  background: var(--partial-background);
+  color: var(--partial);
+}
+
+.question-score.zero {
+  background: var(--wrong-background);
+  color: #991b1b;
+}
+
+.correct-answer {
+  padding: 12px 14px;
+  border-radius: 11px;
+  background: var(--correct-background);
+  color: #166534;
+  font-weight: 800;
+}
+
+.explanation-title {
+  margin: 14px 0 7px;
+  color: var(--primary-dark);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.explanation-text {
+  margin: 0;
+  padding: 13px 14px;
+  border-radius: 11px;
+  background: #faf8ff;
+}
+
+.key-fact {
+  margin-top: 11px;
+  padding: 12px 14px;
+  border-left: 5px solid var(--primary);
+  border-radius: 8px;
+  background: var(--primary-light);
+  font-weight: 750;
+}
+
+.source-warning {
+  margin-top: 11px;
+  padding: 12px 14px;
+  border-left: 5px solid #f59e0b;
+  border-radius: 8px;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.result-card {
+  display: none;
+  padding: 24px;
+  margin: 18px 0;
+  border-radius: 16px;
+  background: white;
+  text-align: center;
+  box-shadow:
+    0 4px 18px
+    rgba(31, 41, 55, 0.08);
+}
+
+.result-card.show {
+  display: block;
+}
+
+.result-card h3 {
+  margin: 0 0 8px;
+  color: var(--primary);
+}
+
+.score {
+  margin: 5px 0;
+  color: var(--primary);
+  font-size: 39px;
+  font-weight: 900;
+}
+
+.actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  gap: 10px;
+  padding: 13px 0 17px;
+  background:
+    rgba(247, 245, 251, 0.95);
+  backdrop-filter: blur(9px);
+}
+
+.actions button {
+  border: none;
+  border-radius: 12px;
+  padding: 15px 17px;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.show-result-button {
+  flex: 1;
+  background: var(--primary);
+  color: white;
+}
+
+.reset-button {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.total-result {
+  display: none;
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 17px;
+  background:
+    linear-gradient(
+      135deg,
+      #6d28d9,
+      #9333ea
+    );
+  color: white;
+  text-align: center;
+}
+
+.total-result.show {
+  display: block;
+}
+
+.total-result h2 {
+  margin: 0 0 10px;
+}
+
+.total-score {
+  font-size: 43px;
+  font-weight: 900;
+}
+
+@media (max-width: 650px) {
+  header h1 {
+    font-size: 27px;
+  }
+
+  .section-navigation {
+    grid-template-columns: 1fr;
+  }
+
+  .question {
+    padding: 17px 15px;
+  }
+
+  .question-title {
+    font-size: 17px;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>
+    Педагогика және қазақ тілін оқыту әдістемесі
+  </h1>
+
+  <p>
+    Кешенді тестілеуге дайындық
+  </p>
+</header>
+
+<main class="container">
+
+  <nav class="section-navigation">
+
+    <button
+      type="button"
+      id="pedagogyTab"
+      class="section-button active"
+      onclick="openSection('pedagogy')"
+    >
+      Педагогика
+    </button>
+
+    <button
+      type="button"
+      id="methodologyTab"
+      class="section-button"
+      onclick="openSection('methodology')"
+    >
+      Қазақ тілін оқыту әдістемесі
+    </button>
+
+  </nav>
+
+  <section
+    id="pedagogySection"
+    class="test-section active"
+  >
+
+    <div class="section-header">
+      <h2>Педагогика</h2>
+
+      <p>
+        30 сұрақ. Әр сұрақта бір дұрыс жауап бар.
+        Әр дұрыс жауапқа 1 балл беріледі.
+      </p>
+
+      <div class="section-information">
+
+        <span class="information-badge">
+          30 сұрақ
+        </span>
+
+        <span class="information-badge">
+          Ең жоғары балл: 30
+        </span>
+
+      </div>
+    </div>
+
+    <div class="progress-card">
+
+      <div class="progress-information">
+        <span>Жауап беру барысы</span>
+
+        <strong id="pedagogyProgressText">
+          0 / 30
+        </strong>
+      </div>
+
+      <div class="progress-line">
+        <span id="pedagogyProgressBar"></span>
+      </div>
+
+    </div>
+
+    <div
+      id="pedagogyResult"
+      class="result-card"
+    >
+      <h3>Педагогика нәтижесі</h3>
+
+      <div
+        id="pedagogyScore"
+        class="score"
+      >
+        0 / 30
+      </div>
+    </div>
+
+    <div id="pedagogyQuiz"></div>
+
+    <div class="actions">
+
+      <button
+        type="button"
+        class="reset-button"
+        onclick="resetPedagogyTest()"
+      >
+        Қайта бастау
+      </button>
+
+      <button
+        type="button"
+        class="show-result-button"
+        onclick="showPedagogyResults()"
+      >
+        Нәтижені көрсету
+      </button>
+
+    </div>
+
+  </section>
+
+  <section
+    id="methodologySection"
+    class="test-section"
+  >
+
+    <div class="section-header">
+      <h2>Қазақ тілін оқыту әдістемесі</h2>
+
+      <p>
+        20 сұрақ. Бір немесе бірнеше дұрыс жауап болуы мүмкін.
+        Әр тапсырмаға ең көбі 2 балл беріледі.
+      </p>
+
+      <div class="section-information">
+
+        <span class="information-badge">
+          20 сұрақ
+        </span>
+
+        <span class="information-badge">
+          Ең жоғары балл: 40
+        </span>
+
+      </div>
+    </div>
+
+    <div class="progress-card">
+
+      <div class="progress-information">
+        <span>Жауап беру барысы</span>
+
+        <strong id="methodologyProgressText">
+          0 / 20
+        </strong>
+      </div>
+
+      <div class="progress-line">
+        <span id="methodologyProgressBar"></span>
+      </div>
+
+    </div>
+
+    <div
+      id="methodologyResult"
+      class="result-card"
+    >
+      <h3>
+        Қазақ тілін оқыту әдістемесі нәтижесі
+      </h3>
+
+      <div
+        id="methodologyScore"
+        class="score"
+      >
+        0 / 40
+      </div>
+    </div>
+
+    <div id="methodologyQuiz"></div>
+
+    <div class="actions">
+
+      <button
+        type="button"
+        class="reset-button"
+        onclick="resetMethodologyTest()"
+      >
+        Қайта бастау
+      </button>
+
+      <button
+        type="button"
+        class="show-result-button"
+        onclick="showMethodologyResults()"
+      >
+        Нәтижені көрсету
+      </button>
+
+    </div>
+
+  </section>
+
+  <section
+    id="totalResult"
+    class="total-result"
+  >
+    <h2>Жалпы нәтиже</h2>
+
+    <div
+      id="totalScore"
+      class="total-score"
+    >
+      0 / 70
+    </div>
+  </section>
+
+<script>
+const letters = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H"
+];
+
+const pedagogyQuestions = [
+
+  {
+    number: 1,
+
+    question:
+      "Технологиялық әрекеттің үнемі жүзеге асуы, құзыреттілік және кәсіби қажетті сапалардың артуы, еңбек өнімділігінің тиімділігінің артуы",
+
+    options: [
+      "кәсіби жаңару",
+      "кәсіби өсу",
+      "кәсіби даму",
+      "кәсіби меңгеру",
+      "кәсіби игеру"
+    ],
+
+    correct: 2,
+
+    explanation:
+      "Кәсіби даму – адамның кәсіби құзыреттілігі, қажетті сапалары мен еңбек тиімділігінің жүйелі түрде арту процесі. Ол маманның өз қызметін жетілдіруін және кәсіби мүмкіндіктерін кеңейтуін қамтиды.",
+
+    keyFact:
+      "Кәсіби даму – кәсіби құзыреттілік пен еңбек тиімділігінің үздіксіз артуы."
+  },
+
+  {
+    number: 2,
+
+    question:
+      "Бағдарлама материалының мазмұнына, мектептің материалдық базасына, оқушылардың оқу материалы мен жұмысының сипатына сүйене отырып анықталады",
+
+    options: [
+      "сабақтың міндеті",
+      "сабақтың типі",
+      "сабақтың мазмұны",
+      "сабақтың әдісі",
+      "сабақтың мақсаты"
+    ],
+
+    correct: 3,
+
+    explanation:
+      "Оқыту әдісін мұғалім оқу материалының мазмұнына, мектептің материалдық мүмкіндіктеріне, оқушылардың дайындық деңгейіне және орындайтын жұмысының сипатына қарай таңдайды.",
+
+    keyFact:
+      "Сабақ әдісін таңдау оқу материалына, оқушы ерекшелігіне және материалдық базаға тәуелді."
+  },
+
+  {
+    number: 3,
+
+    question:
+      "Шәкірттің білімге деген өте белсенді ақыл-ой әрекеті",
+
+    options: [
+      "танымдық игеру",
+      "танымдық қажеттілік",
+      "танымдық қызығушылық",
+      "танымдық белсенділік",
+      "танымдық іс-әрекет"
+    ],
+
+    correct: 2,
+
+    explanation:
+      "Танымдық қызығушылық – оқушының білімді білуге, құбылыстардың мәнін түсінуге және оқу материалын белсенді меңгеруге бағытталған ерекше ақыл-ой ұмтылысы.",
+
+    keyFact:
+      "Танымдық қызығушылық оқушының білімге деген белсенді ұмтылысын білдіреді."
+  },
+
+  {
+    number: 4,
+
+    question:
+      "Өзін ойша өзгенің орнына қою арқылы өзгемен санаса білуі",
+
+    options: [
+      "өзін-өзі сынау",
+      "өзін-өзі көрсету",
+      "өзін-өзі ұялту",
+      "өзін-өзі жазалау",
+      "өзін-өзі тәрбиелеу"
+    ],
+
+    correct: 4,
+
+    explanation:
+      "Өзін-өзі тәрбиелеу барысында адам өз іс-әрекетін өзгелердің көзқарасы тұрғысынан бағалап, олардың жағдайын ескеруге және өз мінез-құлқын саналы түрде түзетуге үйренеді.",
+
+    keyFact:
+      "Өзін-өзі тәрбиелеу адамның өз мінез-құлқын саналы бағалап, жетілдіруін қамтиды.",
+
+    warning:
+      "Сұрақтағы анықтама мазмұны жағынан эмпатия ұғымына жақын. Бірақ жауап нұсқаларында эмпатия берілмегендіктен, тест кілті ретінде E нұсқасы алынды."
+  },
+
+  {
+    number: 5,
+
+    question:
+      "Жеке тұлғаның қалыптасуының ең басты факторы",
+
+    options: [
+      "процесс",
+      "тәрбие",
+      "орта",
+      "қоғам",
+      "мәдениет"
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Тәрбие жеке тұлғаның қалыптасуын мақсатты және жүйелі түрде ұйымдастырады. Ол адамның дүниетанымына, мінезіне, құндылықтарына және қоғамдық қасиеттеріне бағытталған ықпал жасайды.",
+
+    keyFact:
+      "Тәрбие – жеке тұлғаны мақсатты түрде қалыптастыратын жетекші фактор."
+  },
+    {
+    number: 6,
+
+    question:
+      "Мұғалімнің дайын ақпаратты оқушыларға әр түрлі тәсілдермен жеткізуінен, ал оқушылардың оны қабылдап, есте сақтауынан тұратын әдіс",
+
+    options: [
+      "ынталандыру",
+      "репродуктивті",
+      "хабарлама үлгі",
+      "түсіндірмелі-иллюстративті",
+      "бақылау"
+    ],
+
+    correct: 3,
+
+    explanation:
+      "Түсіндірмелі-иллюстративті әдісте мұғалім дайын ақпаратты түсіндіру, әңгімелеу, көрсету және басқа тәсілдер арқылы ұсынады. Оқушылар ақпаратты қабылдап, түсініп, есте сақтайды.",
+
+    keyFact:
+      "Түсіндірмелі-иллюстративті әдіс – дайын білімді мұғалімнің жеткізуі және оқушының оны қабылдап, есте сақтауы."
+  },
+
+  {
+    number: 7,
+
+    question:
+      "Өзінің табиғатында өзіне-өзі әрекет жасай алатын қоғамдық жеке тұлғаның жан-жақты жетілуі",
+
+    options: [
+      "педагогикалық қызмет",
+      "педагогикалық диагностика",
+      "педагогикалық процесс",
+      "педагогикалық әдеп",
+      "педагогикалық іс-әрекет"
+    ],
+
+    correct: 2,
+
+    explanation:
+      "Педагогикалық процесс – оқыту, тәрбиелеу және дамыту міндеттерін біртұтас жүзеге асыратын, жеке тұлғаның жан-жақты жетілуіне бағытталған арнайы ұйымдастырылған үдеріс.",
+
+    keyFact:
+      "Педагогикалық процесс жеке тұлғаны оқытуға, тәрбиелеуге және жан-жақты дамытуға бағытталады."
+  },
+
+  {
+    number: 8,
+
+    question:
+      "Қызметкерлердің кәсіби біліктіліктерін үнемі жетілдіріп отыру қажеттілігі, білімнің қоғамдық капиталға айналу процесі, жаһандану әсерінен ақпараттармен алмасу жылдамдығының күшеюі",
+
+    options: [
+      "үздіксіз білім берудің принциптері",
+      "үздіксіз білім берудің әдістемесі",
+      "үздіксіз білім берудің заңдары",
+      "үздіксіз білім берудің себептері",
+      "үздіксіз білім берудің талаптары"
+    ],
+
+    correct: 3,
+
+    explanation:
+      "Кәсіби біліктілікті үнемі жетілдіру қажеттілігі, білімнің маңызды қоғамдық капиталға айналуы және ақпарат алмасудың жылдамдауы үздіксіз білім берудің пайда болуы мен дамуына себеп болады.",
+
+    keyFact:
+      "Жаһандану, білімнің жаңаруы және кәсіби біліктілікті жетілдіру қажеттілігі – үздіксіз білім берудің негізгі себептері."
+  },
+
+  {
+    number: 9,
+
+    question:
+      "Басқа адамдармен қарым-қатынас жасағанда, өзін сабырлы ұстай білуге, басқалардың кемшіліктеріне кешірімді, қателіктеріне шыдамды болуға көмектесетін өзін-өзі тәрбиелеудің негізгі әдісі",
+
+    options: [
+      "өзін-өзі қадағалау",
+      "өзін-өзі иландыру",
+      "өзін-өзі құптау",
+      "өзіне-өзі бұйрық беру",
+      "өзін-өзі бағалау"
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Өзін-өзі иландыру кезінде адам белгілі бір мінез-құлық үлгісін өз санасына тұрақты түрде бекітеді. Бұл әдіс сабырлылықты, төзімділікті және өзгелердің кемшіліктеріне кешірімді болуды қалыптастыруға көмектеседі.",
+
+    keyFact:
+      "Өзін-өзі иландыру – қажетті қасиеттер мен мінез-құлықты адамның өз санасына сендіру арқылы қалыптастыру әдісі."
+  },
+
+  {
+    number: 10,
+
+    question:
+      "Адамның өз тәжірибесіне негізделген, логикалық, аналитикалық, тәуелсіз, түрлі фактілер арқылы дәлелденетін, рефлексивті, бағалап ойлауын арттыруға негізделген технология",
+
+    options: [
+      "ақпараттық-коммуникативтік",
+      "сыни тұрғыдан ойлау",
+      "оқытудың белгі-контекстік",
+      "ұжымдық-танымдық іс-әрекет",
+      "проблемалық оқыту"
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Сыни тұрғыдан ойлау технологиясы ақпаратты дайын күйінде қабылдамай, оны талдауға, салыстыруға, дәлелдеуге және бағалауға үйретеді. Оқушы өз тәжірибесіне сүйеніп, тәуелсіз қорытынды жасайды.",
+
+    keyFact:
+      "Сыни тұрғыдан ойлау – ақпаратты логикалық талдау, дәлелдеу, бағалау және дербес қорытынды жасау технологиясы."
+  },
+    {
+    number: 11,
+
+    question:
+      "Адамгершілік сезім, адамгершілік сана, сындарлы ойлау, тұрақты ерік-жігер",
+
+    options: [
+      "ғылыми дүниетанымның тәрбиелік белгілері",
+      "ғылыми дүниетанымның сапалық белгілері",
+      "ғылыми дүниетанымның мәдениеттілік белгілері",
+      "ғылыми дүниетанымның сандық белгілері",
+      "ғылыми дүниетанымның әлеуметтік белгілері"
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Адамгершілік сезім, саналы көзқарас, сындарлы ойлау және тұрақты ерік-жігер ғылыми дүниетанымның тұлға бойында қалыптасқан сапалық ерекшеліктерін көрсетеді.",
+
+    keyFact:
+      "Ғылыми дүниетанымның сапалық белгілері адамның санасы, сезімі, ойлауы және ерік-жігері арқылы байқалады."
+  },
+
+  {
+    number: 12,
+
+    question:
+      "Оқыту үдерісінің құрамдық бөліктерінің арасындағы объективті, мәнді, тұрақты, қайталанатын байланыстар",
+
+    options: [
+      "оқыту принциптері",
+      "оқыту түрлері",
+      "оқыту технологиялары",
+      "оқыту заңдылықтары",
+      "оқыту әдіснамалары"
+    ],
+
+    correct: 3,
+
+    explanation:
+      "Оқыту заңдылықтары – оқыту үдерісінің құрамдық бөліктері арасында объективті түрде қалыптасатын, тұрақты және қайталанатын байланыстар.",
+
+    keyFact:
+      "Объективті, мәнді, тұрақты және қайталанатын байланыс – оқыту заңдылығы."
+  },
+
+  {
+    number: 13,
+
+    question:
+      "Тұлғаның тәрбиелік қасиеті оның қарым-қатынас, мінез-құлқы арқылы іске асатынын басшылыққа ала отырып, тұлғаның құндылықтар жүйесін қалыптастыруға бағытталатын тұғыр",
+
+    options: [
+      "іс-әрекеттік",
+      "жүйелілік",
+      "гуманистік бағыт",
+      "антропологиялық",
+      "үздіксіздік"
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Іс-әрекеттік тұғыр бойынша тұлғаның қасиеттері оның нақты әрекеті, қарым-қатынасы және мінез-құлқы барысында қалыптасып, көрініс табады. Сондықтан құндылықтар жүйесі де іс-әрекет арқылы меңгеріледі.",
+
+    keyFact:
+      "Іс-әрекеттік тұғыр тұлғаны әрекет пен қарым-қатынас барысында қалыптастыруды көздейді."
+  },
+
+  {
+    number: 14,
+
+    question:
+      "Бала үшін ең жақын әлеуметтік орта",
+
+    options: [
+      "мұғалім",
+      "отбасы",
+      "досы",
+      "мектеп",
+      "көше"
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Отбасы – баланың дүниеге келгеннен кейінгі алғашқы және ең жақын әлеуметтік ортасы. Бала алғашқы қарым-қатынас, мінез-құлық және құндылық үлгілерін отбасында меңгереді.",
+
+    keyFact:
+      "Отбасы – баланың алғашқы әрі ең жақын әлеуметтік ортасы."
+  },
+
+  {
+    number: 15,
+
+    question:
+      "Оқыту мен тәрбиелеу процесінде педагогикалық іс-тәжірибелерді қолдана отырып, оқушының әртүрлі принциптер мен заңдылықтарды меңгеруін ұйымдастыру",
+
+    options: [
+      "педагогикалық зерттеу әдісінің мақсаты",
+      "педагогикалық зерттеу әдісінің міндеті",
+      "педагогикалық зерттеу әдісінің әрекеті",
+      "педагогикалық зерттеу әдісінің қызметі",
+      "педагогикалық зерттеу әдісінің тәжірибесі"
+    ],
+
+    correct: 3,
+
+    explanation:
+      "Педагогикалық зерттеу әдісінің қызметі педагогикалық тәжірибені зерделеу мен қолдану арқылы оқыту және тәрбиелеу заңдылықтарын анықтауға, оларды оқу процесінде тиімді пайдалануға бағытталады.",
+
+    keyFact:
+      "Педагогикалық зерттеу әдісінің қызметі – тәжірибені зерттеу және педагогикалық заңдылықтарды меңгертуді ұйымдастыру."
+  },
+  
