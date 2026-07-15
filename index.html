@@ -9,7 +9,7 @@
 >
 
 <title>
-  Педагогика және қазақ тілін оқыту әдістемесі
+  Педагогика — тест
 </title>
 
 <style>
@@ -89,7 +89,7 @@ header p {
 
 .section-navigation {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 12px;
   padding: 16px;
   margin-bottom: 18px;
@@ -485,7 +485,7 @@ header p {
 
 <header>
   <h1>
-    Педагогика және қазақ тілін оқыту әдістемесі
+    Педагогика
   </h1>
 
   <p>
@@ -505,17 +505,7 @@ header p {
     >
       Педагогика
     </button>
-
-    <button
-      type="button"
-      id="methodologyTab"
-      class="section-button"
-      onclick="openSection('methodology')"
-    >
-      Қазақ тілін оқыту әдістемесі
-    </button>
-
-  </nav>
+</nav>
 
   <section
     id="pedagogySection"
@@ -596,103 +586,6 @@ header p {
     </div>
 
   </section>
-
-  <section
-    id="methodologySection"
-    class="test-section"
-  >
-
-    <div class="section-header">
-      <h2>Қазақ тілін оқыту әдістемесі</h2>
-
-      <p>
-        20 сұрақ. Бір немесе бірнеше дұрыс жауап болуы мүмкін.
-        Әр тапсырмаға ең көбі 2 балл беріледі.
-      </p>
-
-      <div class="section-information">
-
-        <span class="information-badge">
-          20 сұрақ
-        </span>
-
-        <span class="information-badge">
-          Ең жоғары балл: 40
-        </span>
-
-      </div>
-    </div>
-
-    <div class="progress-card">
-
-      <div class="progress-information">
-        <span>Жауап беру барысы</span>
-
-        <strong id="methodologyProgressText">
-          0 / 20
-        </strong>
-      </div>
-
-      <div class="progress-line">
-        <span id="methodologyProgressBar"></span>
-      </div>
-
-    </div>
-
-    <div
-      id="methodologyResult"
-      class="result-card"
-    >
-      <h3>
-        Қазақ тілін оқыту әдістемесі нәтижесі
-      </h3>
-
-      <div
-        id="methodologyScore"
-        class="score"
-      >
-        0 / 40
-      </div>
-    </div>
-
-    <div id="methodologyQuiz"></div>
-
-    <div class="actions">
-
-      <button
-        type="button"
-        class="reset-button"
-        onclick="resetMethodologyTest()"
-      >
-        Қайта бастау
-      </button>
-
-      <button
-        type="button"
-        class="show-result-button"
-        onclick="showMethodologyResults()"
-      >
-        Нәтижені көрсету
-      </button>
-
-    </div>
-
-  </section>
-
-  <section
-    id="totalResult"
-    class="total-result"
-  >
-    <h2>Жалпы нәтиже</h2>
-
-    <div
-      id="totalScore"
-      class="total-score"
-    >
-      0 / 70
-    </div>
-  </section>
-
 <script>
 const letters = [
   "A",
@@ -1397,77 +1290,10 @@ const pedagogyQuestions = [
 
 ];
 
-const methodologyQuestions = [
-
-  // Қазақ тілін оқыту әдістемесінің
-  // 20 сұрағы осы жерден енгізіледі.
-  let pedagogyResultScore = null;
+let pedagogyResultScore = null;
 
 function preparePedagogyOnlySite() {
-  document.title =
-    "Педагогика — тест";
-
-  const mainTitle =
-    document.querySelector("header h1");
-
-  const headerDescription =
-    document.querySelector("header p");
-
-  if (mainTitle) {
-    mainTitle.textContent = "Педагогика";
-  }
-
-  if (headerDescription) {
-    headerDescription.textContent =
-      "Кешенді тестілеуге дайындық";
-  }
-
-  const methodologyTab =
-    document.getElementById(
-      "methodologyTab"
-    );
-
-  const methodologySection =
-    document.getElementById(
-      "methodologySection"
-    );
-
-  const totalResult =
-    document.getElementById(
-      "totalResult"
-    );
-
-  if (methodologyTab) {
-    methodologyTab.remove();
-  }
-
-  if (methodologySection) {
-    methodologySection.remove();
-  }
-
-  if (totalResult) {
-    totalResult.remove();
-  }
-
-  const navigation =
-    document.querySelector(
-      ".section-navigation"
-    );
-
-  if (navigation) {
-    navigation.style.gridTemplateColumns =
-      "1fr";
-  }
-
-  const pedagogyTab =
-    document.getElementById(
-      "pedagogyTab"
-    );
-
-  if (pedagogyTab) {
-    pedagogyTab.textContent =
-      "Педагогика";
-  }
+  document.title = "Педагогика — тест";
 }
 
 function getCorrectIndexes(question) {
@@ -1848,13 +1674,11 @@ function resetPedagogyTest() {
 }
 
 function openSection() {
-  document.getElementById(
-    "pedagogySection"
-  ).classList.add("active");
+  const section = document.getElementById("pedagogySection");
 
-  document.getElementById(
-    "pedagogyTab"
-  ).classList.add("active");
+  if (section) {
+    section.classList.add("active");
+  }
 
   window.scrollTo({
     top: 0,
